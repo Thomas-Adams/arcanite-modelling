@@ -1,0 +1,27 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateMapper.
+ */]
+[module generateMapper('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
+
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
+
+[**
+ * The documentation of the template generateMapper.
+ * @param anEClass
+ */]
+[template public generateMapper(eClass : EClass)]
+[file (eClass.name + 'Mapper.java', false, 'UTF-8')]
+package org.arcanite.idm.data.mapper.api;
+
+[comment @main/]
+
+import org.arcanite.idm.data.dto.[eClass.name + 'Dto'/];
+import org.arcanite.idm.data.entity.[eClass.name/];
+
+public interface [eClass.name/]Mapper extends BaseMapper<[eClass.name/], [buildDtoName(eClass.name)/], Long> {
+
+}
+
+[/file]
+[/template]

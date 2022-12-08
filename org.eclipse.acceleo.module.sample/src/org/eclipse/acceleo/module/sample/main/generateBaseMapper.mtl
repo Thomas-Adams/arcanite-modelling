@@ -1,0 +1,54 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateBaseMapper.
+ */]
+[module generateBaseMapper('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
+
+
+[**
+ * The documentation of the template generateBaseMapper.
+ * @param anEClass
+ */]
+[template public generateBaseMapper(anEPackage : EPackage)]
+
+[file ('BaseMapper.java', false, 'UTF-8')]
+
+package org.arcanite.idm.data.mapper.api;
+[comment @main/]
+import org.arcanite.idm.data.dto.BasicDto;
+import org.arcanite.idm.data.entity.BasicEntity;
+import org.springframework.data.domain.Page;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+
+public interface BaseMapper<B extends BasicEntity<ID>, D extends BasicDto<ID>, ID extends Serializable> {
+
+	
+    B convertToEntity(D dto);
+
+    List<B> convertToEntityList(List<D> dtos);
+
+    Set<B> convertToEntitySet(Set<D> dtos);
+
+    Page<B> convertToEntityPage(Page<D> dtoPage);
+
+    D convertToDTO(B entity);
+
+    List<D> convertToDTOList(List<B> entities);
+
+    Set<D> convertToDTOSet(Set<B> entities);
+
+    Page<D> convertToDTOPage(Page<B> entityPage);
+
+    Optional<D> convertToDtoOptional(Optional<B> entity);
+
+    Optional<B> convertToEntityOptional(Optional<D> dto);
+	
+}
+
+[/file]
+[/template]

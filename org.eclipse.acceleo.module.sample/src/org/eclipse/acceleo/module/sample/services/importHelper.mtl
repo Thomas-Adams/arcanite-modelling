@@ -1,0 +1,51 @@
+[comment encoding = UTF-8 /]
+[module importHelper('http://www.eclipse.org/emf/2002/Ecore')/]
+
+
+[query public importInitialize(arg0 : EClass) : Sequence(OclAny)
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper', 'importInitialize(org.eclipse.emf.ecore.EClass)', Sequence{arg0})
+/]
+
+[query public importInitializeDto(arg0 : EClass) : Sequence(OclAny)
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper', 'importInitializeDto(org.eclipse.emf.ecore.EClass)', Sequence{arg0})
+/]
+
+[query public dtoFileFromClass(arg0 : EClass) : OclAny
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper', 'dtoFileFromClass(org.eclipse.emf.ecore.EClass)', Sequence{arg0})
+/]
+
+[query public hasTypeParameters(arg0 : EClass) : OclAny
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper','hasTypeParameters(org.eclipse.emf.ecore.EClass)', Sequence{arg0})
+/]
+
+[query public getClassTypeParameterNames(arg0 : EClass) : Sequence(OclAny)
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper','getClassTypeParameterNames(org.eclipse.emf.ecore.EClass)', Sequence{arg0})
+/]
+
+[query public getBoundsOfTypeParameter(arg0 : ETypeParameter) : Sequence(OclAny)
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper','getBoundsOfTypeParameter(org.eclipse.emf.ecore.ETypeParameter)', Sequence{arg0})
+/]
+
+[query public hasParameter(arg0 : EAttribute, arg1: String) : OclAny
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper','hasParameter(org.eclipse.emf.ecore.EAttribute, java.lang.String)', Sequence{arg0})
+/]
+
+[query public getParameter(arg0 : EAttribute) : OclAny
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper','getParameter(org.eclipse.emf.ecore.EAttribute)', Sequence{arg0})
+/]
+
+[query public generateClassDef(arg0 : EClass) : OclAny
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper','generateClassDef(org.eclipse.emf.ecore.EClass)', Sequence{arg0})
+/]
+
+[query public getTypeParamerterOrType(arg0 : EAttribute) : OclAny
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper','getTypeParamerterOrType(org.eclipse.emf.ecore.EAttribute)', Sequence{arg0})
+/]
+
+[query public generateDtoDef(arg0 : EClass) : OclAny
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper','generateDtoDef(org.eclipse.emf.ecore.EClass)', Sequence{arg0})
+/]
+
+[query public buildDtoName(arg0 : OclAny) : OclAny
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper','buildDtoName(java.lang.String)', Sequence{arg0})
+/]

@@ -1,0 +1,63 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generate.
+ */]
+[module generate('http://www.eclipse.org/emf/2011/Xcore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2002/Ecore') ]
+
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
+[**
+ * The documentation of the template generateElement.
+ * @param aXClass
+ */]
+
+
+[template public generateClassLine(eClass: EClass)]
+
+[/template]
+
+
+[template public generateClassTypes(eClass: EClass)]
+[for(param: ETypeParameter | eClass.eTypeParameters )before('<') after('>')][param.name /] extends [for(bound: EGenericType | param.eBounds) separator(', ')][bound.eClassifier.name /][/for][/for]
+[/template]
+
+[template public generateSuperClasses(eClass: EClass)]
+
+[/template]
+
+[template public generateElement(eClass : EClass)]
+[comment @main/]
+[file (eClass.name +'.java', false, 'UTF-8')]
+
+package org.arcanite.idm.data.entity;
+
+
+[for(imp: OclAny | importInitialize(eClass))]
+[if (not imp->oclIsUndefined())]
+import [imp/];
+[/if]
+[/for]
+
+
+
+[for ( a: EAnnotation | eClass.eAnnotations) ]
+@[a.source.substring(a.source.lastIndex('.')+1)/]
+[/for]
+[generateClassDef(eClass) /] {
+	
+	[for (s: EAttribute | eClass.eAttributes) separator('\n')]
+	[for ( a: EAnnotation | s.eAnnotations) ]@[a.source.substring(a.source.lastIndex('.')+1)/][/for]
+	private [getTypeParamerterOrType(s) /] [s.name/];
+	[/for]
+	[for (ref: EReference | eClass.eAllReferences) separator('\n')]
+ 	[if(ref.upperBound = -1)]
+	@OneToMany(mappedBy="[ref.eOpposite.name/]")
+	private List<[ref.eReferenceType.name/]> [ref.name/];
+	[else]
+	@ManyToOne
+	private [ref.eReferenceType.name/] [ref.name/];
+	[/if]
+ 	[/for]
+
+}
+[/file]
+[/template]

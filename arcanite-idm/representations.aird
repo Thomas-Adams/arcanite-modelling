@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<viewpoint:DAnalysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" uid="_mPKFYGhLEe2zNpHZ2dxT5Q" version="15.0.0.202201261500">
+  <semanticResources>src-xtend/org/arcanite/idm/codegen/ArcaniteCodeGenerator.xtend</semanticResources>
+  <semanticResources>src-xtend/org/arcanite/idm/codegen/InterfaceHelper.xtend</semanticResources>
+  <semanticResources>src-xtend/org/arcanite/idm/codegen/ETypeHelper.xtend</semanticResources>
+  <semanticResources>src-xtend/org/arcanite/idm/codegen/ClassGenerator.xtend</semanticResources>
+  <semanticResources>xtend-gen/org/arcanite/idm/codegen/ImportHelper.xtend</semanticResources>
+  <semanticResources>src-xtend/org/arcanite/idm/codegen/ImportHelper.xtend</semanticResources>
+  <semanticResources>platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel</semanticResources>
+  <semanticResources>platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore</semanticResources>
+  <semanticResources>model/IdentityManagement.genmodel</semanticResources>
+  <semanticResources>model/idm.ecore</semanticResources>
+</viewpoint:DAnalysis>

@@ -1,0 +1,26 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateRepository.
+ */]
+[module generateRepository('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
+
+
+[**
+ * The documentation of the template generateRepository.
+ * @param anEClass
+ */]
+[template public generateRepository(eClass : EClass)]
+[comment @main/]
+[file (eClass.name + 'Repository.java', false, 'UTF-8')]
+package org.enargit.attributes.data.repository;
+
+import org.arcanite.idm.data.entity.[eClass.name/];
+import org.arcanite.idm.data.entity.Q[eClass.name/];
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface [eClass.name/]Repository extends BaseRepository<Long, [eClass.name/], Q[eClass.name/]> {
+
+}
+[/file]
+[/template]

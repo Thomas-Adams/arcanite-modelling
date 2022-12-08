@@ -1,0 +1,53 @@
+package org.enargit.cms
+
+annotation "http://javax.persistence.Id" as Id
+annotation "http://javax.persistence.Version" as Version
+annotation "http://javax.persistence.Column" as Column
+annotation "http://javax.persistence.OneToMany" as OneToMany
+annotation "http://javax.persistence.ManyToMany" as ManyToMany
+annotation "http://javax.persistence.ManyToOne" as ManyToOne
+annotation "http://javax.persistence.Entity" as Entity
+annotation "http://javax.persistence.MappedSuperClass" as MappedSuperClass
+
+annotation "http://lombok.experimantal.SuperBuilder" as SuperBuilder
+annotation "http://lombok.Data" as Data
+annotation "http://lombok.Getter" as Getter
+annotation "http://lombok.Setter" as Setter
+annotation "http://lombok.EqualsAndHashCode" as EqualsAndHashCode
+annotation "http://lombok.AllArgsConstructor" as AllArgsConstructor
+annotation "http://lombok.NoArgsConstructor" as NoArgsConstructor
+annotation "http://lombok.RequiredArgsConstructor" as RequiredArgsConstructor
+annotation "http://lombok.ToString" as ToString
+annotation "http://lombok.Value" as Value
+
+type OffsetDateTime wraps java.time.OffsetDateTime
+
+
+@SuperBuilder
+@MappedSuperClass
+class BasicEntity {
+	
+	@Id
+	Long ^id
+	
+	@Version
+	Long version
+	
+	OffsetDateTime created
+	
+	OffsetDateTime modified
+	
+	String createdBy
+	
+	String modifiedBy
+}
+
+@SuperBuilder
+class ContentType extends BasicEntity {
+	
+	String typename
+	
+	String description
+	
+	
+}

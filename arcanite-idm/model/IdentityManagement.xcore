@@ -1,0 +1,203 @@
+package org.arcanite.idm
+
+import java.io.Serializable
+
+annotation "http://javax.persistence.Id" as Id
+annotation "http://javax.persistence.Version" as Version
+annotation "http://javax.persistence.Column" as Column
+annotation "http://javax.persistence.OneToMany" as OneToMany
+annotation "http://javax.persistence.ManyToMany" as ManyToMany
+annotation "http://javax.persistence.ManyToOne" as ManyToOne
+annotation "http://javax.persistence.Entity" as Entity
+annotation "http://javax.persistence.MappedSuperClass" as MappedSuperClass
+
+annotation "http://lombok.experimental.SuperBuilder" as SuperBuilder
+annotation "http://lombok.Data" as Data
+annotation "http://lombok.Getter" as Getter
+annotation "http://lombok.Setter" as Setter
+annotation "http://lombok.EqualsAndHashCode" as EqualsAndHashCode
+annotation "http://lombok.AllArgsConstructor" as AllArgsConstructor
+annotation "http://lombok.NoArgsConstructor" as NoArgsConstructor
+annotation "http://lombok.RequiredArgsConstructor" as RequiredArgsConstructor
+annotation "http://lombok.ToString" as ToString
+annotation "http://lombok.Value" as Value
+
+type OffsetDateTime wraps java.time.OffsetDateTime
+type Serializable wraps java.io.Serializable
+type String wraps java.lang.String
+type Long wraps java.lang.Long
+type Boolean wraps java.lang.Boolean
+type BigDecimal wraps java.math.BigDecimal
+type Double wraps java.lang.Double
+type Float wraps java.lang.Float
+
+@SuperBuilder
+@MappedSuperClass
+@SuperBuilder
+@NoArgsConstructor
+class BasicEntity<ID extends Serializable>  {
+	
+	@Id
+	ID ^id
+	
+	@Version
+	Long version
+	
+	OffsetDateTime created
+	
+	OffsetDateTime modified
+	
+	String createdBy
+	
+	String modifiedBy
+}
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class User extends BasicEntity<Long> {
+	
+	String username
+	
+	String email
+	
+	String password
+	
+	Boolean enabled
+	
+	Boolean expired
+	
+	Boolean locked
+	
+	refers UserRole[] userRoles opposite user	
+	refers UserGroup[] userGroups opposite user	
+}
+
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class Privilege extends BasicEntity<Long> {
+	
+	@Column(^unique="true")
+	String name
+	String description
+	refers RolePrivilege[] rolePrivileges opposite privilege
+}	
+
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class Role extends BasicEntity<Long> {
+	
+	@Column(^unique="true")
+	String name
+	String description
+	refers RolePrivilege[] rolePrivileges opposite role
+	refers UserRole[] userRoles opposite role
+	
+}	
+
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class RolePrivilege extends BasicEntity<Long> {
+	refers Privilege privilege opposite rolePrivileges
+	refers Role role opposite rolePrivileges
+}
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class UserRole extends BasicEntity<Long> {
+	refers User user opposite userRoles
+	refers Role role opposite userRoles
+}
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class UserGroup extends BasicEntity<Long> {
+	refers User user opposite userGroups
+	refers Group group opposite userGroups
+}
+
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class UserType extends BasicEntity<Long> {
+	@Column(^unique="true")
+	String name
+	String description	
+}
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class Group extends BasicEntity<Long> {
+	@Column(^unique="true")
+	String name
+	String description
+	refers UserGroup[] userGroups opposite group
+	refers ApplicationGroup[] applicationGroups opposite group
+}
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class ApplicationGroup extends BasicEntity<Long> {
+	refers Application application opposite applicationGroups
+	refers Group group opposite applicationGroups
+}
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class Tenant extends BasicEntity<Long> {
+	@Column(^unique="true")
+	String name
+	String description
+	refers TenantApplication[] tenantApplications opposite tenant 
+}
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class TenantApplication extends BasicEntity<Long> {
+	refers Tenant tenant opposite tenantApplications
+	refers Application application opposite tenantApplications
+}
+
+
+
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+class Application extends BasicEntity<Long> {
+	@Column(^unique="true")
+	String name
+	String description
+	refers TenantApplication[] tenantApplications opposite application
+	refers ApplicationGroup[] applicationGroups opposite application
+}
+
+
+
+
+
+

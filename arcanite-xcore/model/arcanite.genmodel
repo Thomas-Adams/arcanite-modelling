@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/arcanite-xcore/src" modelPluginID="arcanite-xcore"
+    runtimeJar="true" modelName="Arcanite" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="" booleanFlagsField="eFlags" booleanFlagsReservedBits="8" importerID="org.eclipse.emf.ecore.xcore.importer"
+    containmentProxies="true" complianceLevel="5.0" language="en" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
+    operationReflection="true" importOrganizing="true" decoration="Live" oSGiCompatible="true"
+    eclipsePlatformVersion="Juno" autoResizeProperties="true" autoExpandProperties="10"
+    findAction="true" expandAllAction="true" collapseAllAction="true" revertAction="true">
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/exporter/org.eclipse.xsd.ecore.exporter">
+    <genAnnotations source="selectedPackages">
+      <details key="http://www.eclipse.org/emf/2002/Ecore" value="Ecore.xsd"/>
+    </genAnnotations>
+    <details key="directoryURI" value="."/>
+  </genAnnotations>
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/exporter/org.eclipse.xsd.ecore.exporter.xmi">
+    <genAnnotations source="selectedPackages">
+      <details key="http://www.eclipse.org/emf/2002/Ecore" value="EcoreXMI.xsd"/>
+    </genAnnotations>
+    <details key="directoryURI" value="."/>
+  </genAnnotations>
+  <foreignModel>arcanite.xcore</foreignModel>
+  <modelPluginVariables>org.eclipse.xtext.xbase.lib</modelPluginVariables>
+  <modelPluginVariables>org.eclipse.emf.ecore.xcore.lib</modelPluginVariables>
+  <genPackages prefix="Cms" basePackage="org.enargit" disposableProviderFactory="true"
+      ecorePackage="cms.ecore#/">
+    <genDataTypes ecoreDataType="cms.ecore#//OffsetDateTime"/>
+    <genClasses ecoreClass="cms.ecore#//BasicEntity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cms.ecore#//BasicEntity/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cms.ecore#//BasicEntity/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cms.ecore#//BasicEntity/created"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cms.ecore#//BasicEntity/modified"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cms.ecore#//BasicEntity/createdBy"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cms.ecore#//BasicEntity/modifiedBy"/>
+    </genClasses>
+    <genClasses ecoreClass="cms.ecore#//ContentType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cms.ecore#//ContentType/typename"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cms.ecore#//ContentType/description"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

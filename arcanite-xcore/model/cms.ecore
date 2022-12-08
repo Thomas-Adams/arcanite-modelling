@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="cms" nsURI="org.enargit.cms" nsPrefix="cms">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+    <details key="basePackage" value="org.enargit"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2011/Xcore">
+    <details key="Id" value="http://javax.persistence.Id"/>
+    <details key="Version" value="http://javax.persistence.Version"/>
+    <details key="Column" value="http://javax.persistence.Column"/>
+    <details key="OneToMany" value="http://javax.persistence.OneToMany"/>
+    <details key="ManyToMany" value="http://javax.persistence.ManyToMany"/>
+    <details key="ManyToOne" value="http://javax.persistence.ManyToOne"/>
+    <details key="Entity" value="http://javax.persistence.Entity"/>
+    <details key="MappedSuperClass" value="http://javax.persistence.MappedSuperClass"/>
+    <details key="SuperBuilder" value="http://lombok.experimantal.SuperBuilder"/>
+    <details key="Data" value="http://lombok.Data"/>
+    <details key="Getter" value="http://lombok.Getter"/>
+    <details key="Setter" value="http://lombok.Setter"/>
+    <details key="EqualsAndHashCode" value="http://lombok.EqualsAndHashCode"/>
+    <details key="AllArgsConstructor" value="http://lombok.AllArgsConstructor"/>
+    <details key="NoArgsConstructor" value="http://lombok.NoArgsConstructor"/>
+    <details key="RequiredArgsConstructor" value="http://lombok.RequiredArgsConstructor"/>
+    <details key="ToString" value="http://lombok.ToString"/>
+    <details key="Value" value="http://lombok.Value"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EDataType" name="OffsetDateTime" instanceClassName="java.time.OffsetDateTime"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BasicEntity">
+    <eAnnotations source="http://lombok.experimantal.SuperBuilder"/>
+    <eAnnotations source="http://javax.persistence.MappedSuperClass"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" unique="false" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//ELongObject">
+      <eAnnotations source="http://javax.persistence.Id"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//ELongObject">
+      <eAnnotations source="http://javax.persistence.Version"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" unique="false"
+        eType="#//OffsetDateTime"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modified" unique="false"
+        eType="#//OffsetDateTime"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="createdBy" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modifiedBy" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContentType" eSuperTypes="#//BasicEntity">
+    <eAnnotations source="http://lombok.experimantal.SuperBuilder"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="typename" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

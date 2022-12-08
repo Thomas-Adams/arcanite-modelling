@@ -1,0 +1,45 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateMapperImpl.
+ */]
+[module generateMapperImpl('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
+
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
+[**
+ * The documentation of the template generateMapperImpl.
+ * @param anEClass
+ */]
+[template public generateMapperImpl(eClass : EClass)]
+[comment @main/]
+[file (eClass.name + 'MapperImpl.java', false, 'UTF-8')]
+package org.arcanite.idm.data.mapper.impl;
+
+import org.arcanite.idm.data.dto.[buildDtoName(eClass.name)/];
+import org.arcanite.idm.data.entity.[eClass.name/];
+import org.arcanite.idm.data.mapper.api.[eClass.name/]Mapper;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+
+@Component
+public class [eClass.name/]MapperImpl extends BaseMapperImpl<[eClass.name/], [buildDtoName(eClass.name)/], Long> implements [eClass.name/]Mapper {
+
+    @Override
+    public Class<[eClass.name/]> getEntityClass() {
+        return [eClass.name/].class;
+    }
+
+    @Override
+    public Class<[buildDtoName(eClass.name)/]> getDtoClass() {
+        return [buildDtoName(eClass.name)/].class;
+    }
+
+    @Autowired
+    public [eClass.name/]MapperImpl(ModelMapper modelMapper) {
+        super(modelMapper);
+    }
+}
+
+[/file]
+[/template]

@@ -1,0 +1,40 @@
+module org.arcanite.idm.ArcaniteXCoreGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+var targetDir = "src-custom"
+var modelPath = "model"
+
+Workflow {
+
+	bean = StandaloneSetup {
+		registerGenModelFile = "model/IdentityManagement.genmodel"
+		scanClassPath = true
+	}
+	
+
+	component = DirectoryCleaner {
+		directory = targetDir
+	}
+
+	
+
+	component = ArcaniteXCoreGeneratorSupport {}
+
+	component = org.eclipse.xtext.mwe.Reader {
+		path = modelPath
+		register = ArcaniteXCoreGeneratorSetup {}
+		loadResource = {
+			slot = "model"
+		}
+	}
+
+	component = org.eclipse.xtext.generator.GeneratorComponent {
+		register = ArcaniteXCoreGeneratorSetup {}
+		slot = 'model'
+		outlet = {
+			path = targetDir
+		}
+	}
+
+}

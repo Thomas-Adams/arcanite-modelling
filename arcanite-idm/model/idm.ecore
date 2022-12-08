@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="idm" nsURI="org.arcanite.idm" nsPrefix="idm">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+    <details key="basePackage" value="org.arcanite"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2011/Xcore">
+    <details key="Id" value="http://javax.persistence.Id"/>
+    <details key="Version" value="http://javax.persistence.Version"/>
+    <details key="Column" value="http://javax.persistence.Column"/>
+    <details key="OneToMany" value="http://javax.persistence.OneToMany"/>
+    <details key="ManyToMany" value="http://javax.persistence.ManyToMany"/>
+    <details key="ManyToOne" value="http://javax.persistence.ManyToOne"/>
+    <details key="Entity" value="http://javax.persistence.Entity"/>
+    <details key="MappedSuperClass" value="http://javax.persistence.MappedSuperClass"/>
+    <details key="SuperBuilder" value="http://lombok.experimental.SuperBuilder"/>
+    <details key="Data" value="http://lombok.Data"/>
+    <details key="Getter" value="http://lombok.Getter"/>
+    <details key="Setter" value="http://lombok.Setter"/>
+    <details key="EqualsAndHashCode" value="http://lombok.EqualsAndHashCode"/>
+    <details key="AllArgsConstructor" value="http://lombok.AllArgsConstructor"/>
+    <details key="NoArgsConstructor" value="http://lombok.NoArgsConstructor"/>
+    <details key="RequiredArgsConstructor" value="http://lombok.RequiredArgsConstructor"/>
+    <details key="ToString" value="http://lombok.ToString"/>
+    <details key="Value" value="http://lombok.Value"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EDataType" name="OffsetDateTime" instanceClassName="java.time.OffsetDateTime"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Serializable" instanceClassName="java.io.Serializable"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="String" instanceClassName="java.lang.String"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Long" instanceClassName="java.lang.Long"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Boolean" instanceClassName="java.lang.Boolean"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="BigDecimal" instanceClassName="java.math.BigDecimal"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Double" instanceClassName="java.lang.Double"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Float" instanceClassName="java.lang.Float"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BasicEntity">
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://javax.persistence.MappedSuperClass"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eTypeParameters name="ID">
+      <eBounds eClassifier="#//Serializable"/>
+    </eTypeParameters>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" unique="false">
+      <eAnnotations source="http://javax.persistence.Id"/>
+      <eGenericType eTypeParameter="#//BasicEntity/ID"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" unique="false"
+        eType="#//Long">
+      <eAnnotations source="http://javax.persistence.Version"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" unique="false"
+        eType="#//OffsetDateTime"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modified" unique="false"
+        eType="#//OffsetDateTime"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="createdBy" unique="false"
+        eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modifiedBy" unique="false"
+        eType="#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="User">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="username" unique="false"
+        eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" unique="false" eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" unique="false"
+        eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabled" unique="false"
+        eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expired" unique="false"
+        eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="locked" unique="false"
+        eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="userRoles" upperBound="-1"
+        eType="#//UserRole" eOpposite="#//UserRole/user"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="userGroups" upperBound="-1"
+        eType="#//UserGroup" eOpposite="#//UserGroup/user"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Privilege">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="#//String">
+      <eAnnotations source="http://javax.persistence.Column">
+        <details key="unique" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
+        eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rolePrivileges" upperBound="-1"
+        eType="#//RolePrivilege" eOpposite="#//RolePrivilege/privilege"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Role">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="#//String">
+      <eAnnotations source="http://javax.persistence.Column">
+        <details key="unique" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
+        eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rolePrivileges" upperBound="-1"
+        eType="#//RolePrivilege" eOpposite="#//RolePrivilege/role"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="userRoles" upperBound="-1"
+        eType="#//UserRole" eOpposite="#//UserRole/role"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RolePrivilege">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="privilege" eType="#//Privilege"
+        eOpposite="#//Privilege/rolePrivileges"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="role" eType="#//Role" eOpposite="#//Role/rolePrivileges"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UserRole">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//User" eOpposite="#//User/userRoles"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="role" eType="#//Role" eOpposite="#//Role/userRoles"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UserGroup">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//User" eOpposite="#//User/userGroups"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="group" eType="#//Group"
+        eOpposite="#//Group/userGroups"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UserType">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="#//String">
+      <eAnnotations source="http://javax.persistence.Column">
+        <details key="unique" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
+        eType="#//String"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Group">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="#//String">
+      <eAnnotations source="http://javax.persistence.Column">
+        <details key="unique" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
+        eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="userGroups" upperBound="-1"
+        eType="#//UserGroup" eOpposite="#//UserGroup/group"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationGroups" upperBound="-1"
+        eType="#//ApplicationGroup" eOpposite="#//ApplicationGroup/group"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationGroup">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="application" eType="#//Application"
+        eOpposite="#//Application/applicationGroups"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="group" eType="#//Group"
+        eOpposite="#//Group/applicationGroups"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Tenant">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="#//String">
+      <eAnnotations source="http://javax.persistence.Column">
+        <details key="unique" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
+        eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tenantApplications" upperBound="-1"
+        eType="#//TenantApplication" eOpposite="#//TenantApplication/tenant"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TenantApplication">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tenant" eType="#//Tenant"
+        eOpposite="#//Tenant/tenantApplications"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="application" eType="#//Application"
+        eOpposite="#//Application/tenantApplications"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Application">
+    <eAnnotations source="http://lombok.Data"/>
+    <eAnnotations source="http://lombok.experimental.SuperBuilder"/>
+    <eAnnotations source="http://lombok.NoArgsConstructor"/>
+    <eAnnotations source="http://javax.persistence.Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="#//String">
+      <eAnnotations source="http://javax.persistence.Column">
+        <details key="unique" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
+        eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tenantApplications" upperBound="-1"
+        eType="#//TenantApplication" eOpposite="#//TenantApplication/application"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationGroups" upperBound="-1"
+        eType="#//ApplicationGroup" eOpposite="#//ApplicationGroup/application"/>
+    <eGenericSuperTypes eClassifier="#//BasicEntity">
+      <eTypeArguments eClassifier="#//Long"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+</ecore:EPackage>

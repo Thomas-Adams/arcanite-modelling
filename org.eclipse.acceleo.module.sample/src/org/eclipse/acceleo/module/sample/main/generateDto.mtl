@@ -1,0 +1,44 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateDto.
+ */]
+[module generateDto('http://www.eclipse.org/emf/2002/Ecore')]
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
+[**
+ * The documentation of the template generateElement.
+ * @param anEClass
+ */]
+[template public generateElement(eClass : EClass)]
+[file ( dtoFileFromClass(eClass).toString() + '.java', false, 'UTF-8')]
+package org.arcanite.idm.data.dto;
+
+
+[for(imp: OclAny | importInitializeDto(eClass)) ]
+[if (not imp->oclIsUndefined())]
+import [imp/];
+[/if]
+[/for]
+[comment @main/]
+[for ( a: EAnnotation | eClass.eAnnotations) ]
+[if( not a.source.substring(a.source.lastIndex('.')+1).equalsIgnoreCase('Entity'))]
+@[a.source.substring(a.source.lastIndex('.')+1)/]
+[/if]
+[/for]
+[generateDtoDef(eClass) /] {
+		
+	[for (s: EAttribute | eClass.eAttributes) separator('\n')]
+	[for ( a: EAnnotation | s.eAnnotations) ]@[a.source.substring(a.source.lastIndex('.')+1)/][/for]
+	private [getTypeParamerterOrType(s) /] [s.name/];
+	[/for]
+	[for (ref: EReference | eClass.eAllReferences) separator('\n')]
+ 	[if(ref.upperBound = -1)]
+	@OneToMany(mappedBy="[ref.eOpposite.name/]")
+	private List<[ref.eReferenceType.name +'Dto'/]> [ref.name/];
+	[else]
+	@ManyToOne
+	private [ref.eReferenceType.name  +'Dto'/] [ref.name/];
+	[/if]
+ 	[/for]
+}
+[/file]
+[/template]
