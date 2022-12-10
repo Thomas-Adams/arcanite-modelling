@@ -3,7 +3,7 @@
  * The documentation of the module generateRepository.
  */]
 [module generateRepository('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
-
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
 
 [**
  * The documentation of the template generateRepository.
@@ -12,10 +12,10 @@
 [template public generateRepository(eClass : EClass)]
 [comment @main/]
 [file (eClass.name + 'Repository.java', false, 'UTF-8')]
-package org.enargit.attributes.data.repository;
+package [packageBaseName()/].data.repository;
 
-import org.arcanite.idm.data.entity.[eClass.name/];
-import org.arcanite.idm.data.entity.Q[eClass.name/];
+import [packageBaseName()/].data.entity.[eClass.name/];
+import [packageBaseName()/]data.entity.Q[eClass.name/];
 import org.springframework.stereotype.Repository;
 
 @Repository

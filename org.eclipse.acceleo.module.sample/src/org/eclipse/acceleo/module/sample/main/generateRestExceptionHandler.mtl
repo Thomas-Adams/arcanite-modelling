@@ -1,0 +1,71 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateRestExceptionHandler.
+ */]
+[module generateRestExceptionHandler('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
+
+[**
+ * The documentation of the template generateRestExceptionHandler.
+ * @param anEPackage
+ */]
+[template public generateRestExceptionHandler(anEPackage : EPackage)]
+[comment @main/]
+[file ('RestExceptionHandler.java', false, 'UTF-8')]
+package [packageBaseName()/].web.rest;
+
+import [packageBaseName()/].exceptions.ApiError;
+import [packageBaseName()/].exceptions.BadRequestException;
+import [packageBaseName()/].exceptions.DataNotFoundException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import javax.persistence.EntityNotFoundException;
+
+@RestControllerAdvice
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    protected ResponseEntity<Object> handleEntityNotFound(
+            EntityNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(DataNotFoundException.class)
+    protected ResponseEntity<Object> handleDataNotFound(
+            DataNotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    protected ResponseEntity<Object> handleBadRequest(
+            BadRequestException ex) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String error = "Malformed JSON request";
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
+    }
+
+    private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+}
+
+[/file]
+[/template]

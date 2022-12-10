@@ -12,12 +12,12 @@
  */]
 [template public generateMapper(eClass : EClass)]
 [file (eClass.name + 'Mapper.java', false, 'UTF-8')]
-package org.arcanite.idm.data.mapper.api;
+package [packageBaseName()/].data.mapper.api;
 
 [comment @main/]
 
-import org.arcanite.idm.data.dto.[eClass.name + 'Dto'/];
-import org.arcanite.idm.data.entity.[eClass.name/];
+import [packageBaseName()/].data.dto.[eClass.name + 'Dto'/];
+import [packageBaseName()/].data.entity.[eClass.name/];
 
 public interface [eClass.name/]Mapper extends BaseMapper<[eClass.name/], [buildDtoName(eClass.name)/], Long> {
 

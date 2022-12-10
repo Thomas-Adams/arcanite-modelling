@@ -363,4 +363,8 @@ public class ImportHelper {
     }
     return attr.getEAttributeType().getName();
   }
+  
+  public static String packageBaseName() {
+    return "org.arcanite.idm";
+  }
 }

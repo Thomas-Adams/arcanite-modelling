@@ -12,11 +12,11 @@
 [template public generateMapperImpl(eClass : EClass)]
 [comment @main/]
 [file (eClass.name + 'MapperImpl.java', false, 'UTF-8')]
-package org.arcanite.idm.data.mapper.impl;
+package [packageBaseName()/].data.mapper.impl;
 
-import org.arcanite.idm.data.dto.[buildDtoName(eClass.name)/];
-import org.arcanite.idm.data.entity.[eClass.name/];
-import org.arcanite.idm.data.mapper.api.[eClass.name/]Mapper;
+import [packageBaseName()/].data.dto.[buildDtoName(eClass.name)/];
+import [packageBaseName()/].data.entity.[eClass.name/];
+import [packageBaseName()/].data.mapper.api.[eClass.name/]Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

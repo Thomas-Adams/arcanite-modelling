@@ -10,7 +10,7 @@
  */]
 [template public generateElement(eClass : EClass)]
 [file ( dtoFileFromClass(eClass).toString() + '.java', false, 'UTF-8')]
-package org.arcanite.idm.data.dto;
+package [packageBaseName()/].data.dto;
 
 
 [for(imp: OclAny | importInitializeDto(eClass)) ]

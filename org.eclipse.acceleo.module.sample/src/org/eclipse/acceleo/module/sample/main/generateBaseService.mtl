@@ -1,0 +1,91 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateBaseService.
+ */]
+[module generateBaseService('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
+
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
+
+[**
+ * The documentation of the template generateBaseService.
+ * @param anEClass
+ */]
+[template public generateBaseService(ePackage : EPackage)]
+[comment @main/]
+
+[file ('BaseService.java', false, 'UTF-8')]
+package [packageBaseName()/].data.mapper.api;
+
+
+package org.enargit.attributes.data.service.api;
+
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.EntityPathBase;
+import org.enargit.attributes.data.dto.BaseDto;
+import org.enargit.attributes.data.entities.BaseEntity;
+import org.enargit.attributes.data.mapper.api.BaseMapper;
+import org.enargit.attributes.data.repository.BaseRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
+
+public interface BaseService<ID extends Serializable, DTO extends BaseDto<ID>,
+        EN extends BaseEntity<ID>, Q extends EntityPathBase<EN>,
+        M extends BaseMapper<EN, DTO, ID>,
+        R extends BaseRepository<ID, EN, Q>>{
+
+
+    R getRepository();
+
+    M getMapper();
+
+    Optional<DTO> findBy(ID id);
+
+    Page<DTO> getPage(PageRequest pageRequest);
+
+    Page<DTO> getPageQuery(PageRequest pageRequest, Predicate predicate);
+
+    List<DTO> query(Predicate predicate);
+
+    List<DTO> query(Predicate predicate, OrderSpecifier<?>... orderSpecifiers);
+
+    EN create(DTO dto);
+
+    DTO createDto(DTO dto);
+
+    EN update(DTO dto);
+
+    DTO updateDto(DTO dto);
+
+    EN save(DTO dto);
+
+    List<EN> saveAll(List<DTO> dtos);
+
+    List<EN> updateAll(List<DTO> dtos);
+
+    List<DTO> getAll(Sort sort);
+
+    Long count();
+
+    Long count(Predicate predicate);
+
+    boolean exists(ID id);
+
+    boolean exists(Predicate predicate);
+
+    void delete(ID id);
+
+    void deleteInBatch(Iterable<EN> entities);
+
+
+}
+
+
+
+[/file]
+[/template]

@@ -273,4 +273,8 @@ class ImportHelper {
 		}
 		return attr.EAttributeType.name
 	}
+	
+	def static packageBaseName() {
+		return "org.arcanite.idm";
+	}
 }

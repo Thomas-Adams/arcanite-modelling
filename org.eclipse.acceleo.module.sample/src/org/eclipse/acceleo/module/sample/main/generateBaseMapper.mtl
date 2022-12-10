@@ -3,7 +3,7 @@
  * The documentation of the module generateBaseMapper.
  */]
 [module generateBaseMapper('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
-
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
 
 [**
  * The documentation of the template generateBaseMapper.
@@ -13,10 +13,10 @@
 
 [file ('BaseMapper.java', false, 'UTF-8')]
 
-package org.arcanite.idm.data.mapper.api;
+package [packageBaseName()/].data.mapper.api;
 [comment @main/]
-import org.arcanite.idm.data.dto.BasicDto;
-import org.arcanite.idm.data.entity.BasicEntity;
+import [packageBaseName()/].data.dto.BasicDto;
+import [packageBaseName()/].data.entity.BasicEntity;
 import org.springframework.data.domain.Page;
 
 import java.io.Serializable;

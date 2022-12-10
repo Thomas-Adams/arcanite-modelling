@@ -1,0 +1,145 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateBaseServiceImpl.
+ */]
+[module generateBaseServiceImpl('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
+
+
+[**
+ * The documentation of the template generateBaseServiceImpl.
+ * @param anEClass
+ */]
+[template public generateBaseServiceImpl(anEPackage : EPackage)]
+[comment @main/]
+
+[file ('AbstractBaseService.java', false, 'UTF-8')]
+package [packageBaseName()/].data.service.impl;
+
+
+import com.google.common.collect.Lists;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.EntityPathBase;
+import [packageBaseName()/].data.dto.BasicDto;
+import [packageBaseName()/].data.entities.BasicEntity;
+import [packageBaseName()/].data.mapper.api.BaseMapper;
+import [packageBaseName()/].data.repository.BaseRepository;
+import [packageBaseName()/].data.service.api.BaseService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.util.Assert;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
+
+public abstract class AbstractBaseService<ID extends Serializable, DTO extends BasicDto<ID>,
+        EN extends BasicEntity<ID>,Q extends EntityPathBase<EN>, M extends BaseMapper<EN, DTO, ID>, R extends BaseRepository<ID,EN,Q>> implements BaseService<ID,
+        DTO,
+        EN, Q, M, R> {
+
+    public abstract R getRepository();
+
+    public abstract M getMapper();
+
+    @Override
+    public Optional<DTO> findBy(ID id) {
+        return getMapper().convertToDtoOptional(getRepository().findById(id));
+    }
+
+    @Override
+    public List<DTO> getAll(Sort sort) {
+        return getMapper().convertToDTOList(Lists.newArrayList(getRepository().findAll(sort)));
+    }
+
+    @Override
+    public Page<DTO> getPage(PageRequest pageRequest) {
+        return getMapper().convertToDTOPage(getRepository().findAll(pageRequest));
+    }
+
+    @Override
+    public Page<DTO> getPageQuery(PageRequest pageRequest, Predicate predicate) {
+        return getMapper().convertToDTOPage(getRepository().findAll(predicate, pageRequest));
+    }
+
+    @Override
+    public List<DTO> query(Predicate predicate) {
+        return getMapper().convertToDTOList(Lists.newArrayList(getRepository().findAll(predicate)));
+    }
+
+    @Override
+    public List<DTO> query(Predicate predicate, OrderSpecifier<?>... orderSpecifiers) {
+        return getMapper().convertToDTOList(Lists.newArrayList(getRepository().findAll(predicate, orderSpecifiers)));
+    }
+
+    @Override
+    public Long count() {
+        return getRepository().count();
+    }
+
+    @Override
+    public Long count(Predicate predicate) {
+        return getRepository().count(predicate);
+    }
+
+    @Override
+    public boolean exists(Predicate predicate) {
+        return getRepository().exists(predicate);
+    }
+
+
+    @Override
+    public EN create(DTO dto) {
+        Assert.isNull(dto.getId(), "The id must not be defined");
+        return getRepository().save(getMapper().convertToEntity(dto));
+    }
+
+    public EN update(DTO dto) {
+        Assert.notNull(dto.getId(), "The id must be defined");
+        return getRepository().save(getMapper().convertToEntity(dto));
+    }
+
+    public DTO updateDto(DTO dto) {
+        Assert.notNull(dto.getId(), "The id must be defined");
+        return getMapper().convertToDTO(getRepository().save(getMapper().convertToEntity(dto)));
+    }
+    public EN save(DTO dto) {
+        return getRepository().save(getMapper().convertToEntity(dto));
+    }
+
+    public List<EN> saveAll(List<DTO> dtos) {
+        return Lists.newArrayList(getRepository().saveAll(getMapper().convertToEntityList(dtos)));
+    }
+
+    public List<EN> updateAll(List<DTO> dtos) {
+        dtos.forEach(d -> Assert.notNull(d.getId(), "The id mist be defined"));
+        return Lists.newArrayList(getRepository().saveAll(getMapper().convertToEntityList(dtos)));
+    }
+
+    @Override
+    public boolean exists(ID  id) {
+        return getRepository().existsById(id);
+    }
+
+
+    @Override
+    public void delete(ID id) {
+        getRepository().deleteById(id);
+    }
+
+    @Override
+    public void deleteInBatch(Iterable<EN> entities) {
+        getRepository().deleteAll(entities);
+    }
+
+    @Override
+    public DTO createDto(DTO dto) {
+        Assert.isNull(dto.getId(), "The id must not be defined");
+        return getMapper().convertToDTO(getRepository().save(getMapper().convertToEntity(dto)));
+    }
+}
+
+[/file]
+[/template]

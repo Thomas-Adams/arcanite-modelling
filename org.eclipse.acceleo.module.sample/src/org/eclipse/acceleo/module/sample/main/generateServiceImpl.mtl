@@ -1,0 +1,50 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateServiceImpl.
+ */]
+[module generateServiceImpl('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
+
+[**
+ * The documentation of the template generateServiceImpl.
+ * @param anEClass
+ */]
+[template public generateServiceImpl(eClass : EClass)]
+[comment @main/]
+[file (eClass.name + 'ServiceImpl.java', false, 'UTF-8')]
+package [packageBaseName()/].data.service.impl;
+
+import [packageBaseName()/].data.dto.[buildDtoName(eClass.name)/];
+import [packageBaseName()/].data.entities.[eClass.name/];
+import [packageBaseName()/].data.entities.Q[eClass.name/];
+import [packageBaseName()/].data.mapper.api.[eClass.name/]Mapper;
+import [packageBaseName()/].data.repository.[eClass.name/]Repository;
+import [packageBaseName()/].data.service.api.[eClass.name/]Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class [eClass.name/]ServiceImpl extends AbstractBaseService<Long, [buildDtoName(eClass.name)/],
+        [eClass.name/], Q[eClass.name/], [eClass.name/]Mapper, [eClass.name/]Repository> implements [eClass.name/]Service {
+
+    protected final [eClass.name/]Repository repository;
+    protected final [eClass.name/]Mapper mapper;
+
+    public [eClass.name/]Repository getRepository() {
+        return repository;
+    }
+
+    public [eClass.name/]Mapper getMapper() {
+        return mapper;
+    }
+
+    @Autowired
+    public [eClass.name/]ServiceImpl([eClass.name/]Repository repository, [eClass.name/]Mapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
+}
+
+
+[/file]
+[/template]

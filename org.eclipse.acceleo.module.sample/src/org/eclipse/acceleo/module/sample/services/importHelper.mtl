@@ -49,3 +49,7 @@
 [query public buildDtoName(arg0 : OclAny) : OclAny
 	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper','buildDtoName(java.lang.String)', Sequence{arg0})
 /]
+
+[query public packageBaseName(arg0 : OclAny) : OclAny
+	= invoke('org.eclipse.acceleo.module.sample.services.ImportHelper','packageBaseName()', Sequence{arg0})
+/]

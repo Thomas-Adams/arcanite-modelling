@@ -1,0 +1,40 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateAbstractRestController.
+ */]
+[module generateAbstractRestController('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
+
+[**
+ * The documentation of the template generateAbstractRestController.
+ * @param anEClass
+ */]
+[template public generateAbstractRestController(ePackage : EPackage)]
+[comment @main/]
+[file ('AbstractRestController.java', false, 'UTF-8')]
+package [packageBaseName()/].web.rest;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
+
+import java.io.Serializable;
+
+public abstract class AbstractRestController<T extends Serializable> {
+
+    public static final String PAYLOAD_ERROR = "Payload is null or contains a non-null id";
+
+    public abstract ObjectMapper getObjectMapper();
+
+    public abstract Class<T> getObjectClass();
+
+    protected T applyPatch(
+            JsonPatch patch, Class<T> target) throws JsonPatchException, JsonProcessingException {
+        JsonNode patched = patch.apply(getObjectMapper().convertValue(target, JsonNode.class));
+        return getObjectMapper().treeToValue(patched, getObjectClass());
+    }
+}
+[/file]
+[/template]

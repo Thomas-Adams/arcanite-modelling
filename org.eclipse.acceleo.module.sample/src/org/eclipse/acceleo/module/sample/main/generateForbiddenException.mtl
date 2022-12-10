@@ -1,0 +1,40 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateForbiddenException.
+ */]
+[module generateForbiddenException('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel', 'http://www.eclipse.org/emf/2011/Xcore')]
+[import org::eclipse::acceleo::module::sample::services::importHelper/]
+
+[**
+ * The documentation of the template generateForbiddenException.
+ * @param anEPackage
+ */]
+[template public generateForbiddenException(anEPackage : EPackage)]
+[comment @main/]
+[file ('ForbiddenException.java', false, 'UTF-8')]
+package [packageBaseName()/].exceptions;
+
+public class ForbiddenException extends RuntimeException{
+
+    public ForbiddenException() {
+    }
+
+    public ForbiddenException(String message) {
+        super(message);
+    }
+
+    public ForbiddenException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ForbiddenException(Throwable cause) {
+        super(cause);
+    }
+
+    public ForbiddenException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
+}
+
+[/file]
+[/template]
